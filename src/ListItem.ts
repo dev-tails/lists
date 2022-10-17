@@ -23,7 +23,10 @@ export const ListItem = ({ block }: ListItemProps) => {
   setStyle(checkbox, {});
   el.append(checkbox);
 
-  el.addEventListener("click", () => {
+  el.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     checked = !checked;
     checkbox.checked = checked;
     updateBlock({
