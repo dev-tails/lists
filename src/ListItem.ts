@@ -35,7 +35,9 @@ export const ListItem = ({ block }: ListItemProps) => {
   })
 
   const bodyText = document.createElement("div");
-  setStyle(bodyText, {});
+  setStyle(bodyText, {
+    marginLeft: "8px"
+  });
   bodyText.innerText = block.body;
   el.append(bodyText);
 

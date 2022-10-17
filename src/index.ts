@@ -36,7 +36,11 @@ async function init() {
 
   const blocks = await getAllBlocks();
   const sortedBlocks = blocks.sort((a, b) => {
-    return b.createdAt.getTime() - a.createdAt.getTime();
+    const timeSortVal = b.createdAt.getTime() - a.createdAt.getTime();
+    if (a.data?.checked && b.data?.checked || !a.data?.checked && !b.data?.checked) {
+      return timeSortVal;
+    }
+    return a.data?.checked ? 1 : -1
   });
   for (const block of sortedBlocks) {
     const listItem = ListItem({ block });
