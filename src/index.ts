@@ -6,7 +6,9 @@ import { setStyle } from "./setStyle";
 async function init() {
   let serviceWorkerRegistration: ServiceWorkerRegistration;
   if ("serviceWorker" in navigator) {
-    serviceWorkerRegistration = await navigator.serviceWorker.register("serviceworker.js");
+    serviceWorkerRegistration = await navigator.serviceWorker.register(
+      "serviceworker.js"
+    );
   }
 
   const root = document.createElement("div");
@@ -16,8 +18,8 @@ async function init() {
     backgroundColor: Colors.BG_DARK,
     color: Colors.TEXT,
     margin: "0",
-    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`
-  })
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
+  });
 
   const list = document.createElement("div");
   setStyle(list, {
@@ -28,12 +30,15 @@ async function init() {
     flexDirection: "column-reverse",
     maxWidth: "800px",
     width: "100%",
-    margin: "0 auto"
+    margin: "0 auto",
   });
   root.append(list);
 
   const blocks = await getAllBlocks();
-  for (const block of blocks) {
+  const sortedBlocks = blocks.sort((a, b) => {
+    return b.createdAt.getTime() - a.createdAt.getTime();
+  });
+  for (const block of sortedBlocks) {
     const listItem = ListItem({ block });
     list.append(listItem);
   }
@@ -41,8 +46,8 @@ async function init() {
   const footer = document.createElement("div");
   setStyle(footer, {
     backgroundColor: Colors.BG_LIGHT,
-    padding: "8px"
-  })
+    padding: "8px",
+  });
   root.append(footer);
 
   const input = document.createElement("input");
@@ -59,7 +64,7 @@ async function init() {
     borderBottom: "1px solid white",
     borderRadius: "0",
     color: Colors.TEXT,
-    fontSize: "1em"
+    fontSize: "1em",
   });
   footer.append(input);
 

@@ -1,5 +1,5 @@
 import { Colors } from "./Colors";
-import { Block } from "./db/db";
+import { Block, updateBlock } from "./db/db";
 import { setStyle } from "./setStyle";
 
 type ListItemProps = {
@@ -7,14 +7,37 @@ type ListItemProps = {
 };
 
 export const ListItem = ({ block }: ListItemProps) => {
-  const el = document.createElement("div");
+  let checked = block.data?.checked;
 
+  const el = document.createElement("div");
   setStyle(el, {
+    display: "flex",
     borderTop: `1px solid ${Colors.BG_LIGHT}`,
-    padding: "8px"
+    padding: "8px",
+    userSelect: "none"
+  });
+
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.checked = checked;
+  setStyle(checkbox, {});
+  el.append(checkbox);
+
+  el.addEventListener("click", () => {
+    checked = !checked;
+    checkbox.checked = checked;
+    updateBlock({
+      ...block,
+      data: {
+        checked
+      }
+    })
   })
 
-  el.innerText = block.body;
+  const bodyText = document.createElement("div");
+  setStyle(bodyText, {});
+  bodyText.innerText = block.body;
+  el.append(bodyText);
 
   return el;
 };

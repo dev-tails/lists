@@ -5,6 +5,9 @@ export type Block = {
   localId: string;
   body: string;
   createdAt: Date;
+  data: {
+    checked: boolean;
+  }
 }
 
 interface ListsDB extends DBSchema {
@@ -42,6 +45,13 @@ export async function addBlock(value: Partial<Block>) {
   const addedBlock = { ...value, localId, createdAt: date } as Block;
   await db.add("blocks", addedBlock);
   return addedBlock;
+}
+
+export async function updateBlock(update: Block) {
+  const db = await getDb();
+
+  await db.put("blocks", update);
+  return update;
 }
 
 export async function getAllBlocks() {
