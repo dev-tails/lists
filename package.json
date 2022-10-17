@@ -1,0 +1,19 @@
+{
+  "name": "@engramhq/lists",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --minify --outfile=static/js/lists.js",
+    "build:w": "npm run build -- --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "esbuild": "^0.15.11"
+  },
+  "dependencies": {
+    "idb": "^7.1.0",
+    "uuid": "^9.0.0"
+  }
+}
